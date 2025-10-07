@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import { Phone, MapPin, Calendar, Star, Menu, X, ChefHat, Users, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const IndianSoulFood = () => {
+  // Load Google Fonts
+  React.useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }, []);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedDish, setSelectedDish] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -161,7 +168,7 @@ const IndianSoulFood = () => {
     }
   ];
 
-   const testimonials = [
+  const testimonials = [
     {
       name: "Roei C.",
       date: "June 6, 2023",
@@ -229,6 +236,7 @@ const IndianSoulFood = () => {
       text: "I'm not usually big on Indian food, but Indian Soul Food changed my mind completely. The dal makhani is comfort food at its finest. Delivery is always prompt too!"
     }
   ];
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -236,7 +244,7 @@ const IndianSoulFood = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50" style={{ fontFamily: 'Poppins, sans-serif' }}>
       {/* Navigation */}
       <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
@@ -244,35 +252,35 @@ const IndianSoulFood = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
-              <ChefHat className={`transition-colors ${isScrolled ? 'text-orange-600' : 'text-white'}`} size={32} />
-              <span className={`text-2xl font-bold transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>Indian Soul Food</span>
+              <ChefHat className={`transition-colors ${isScrolled ? 'text-amber-800' : 'text-white'}`} size={32} />
+              <span className={`text-2xl font-bold transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'}`} style={{ fontFamily: 'Playfair Display, serif' }}>Indian Soul Food</span>
             </div>
             
             {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-              <button onClick={() => scrollToSection('home')} className={`transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'}`}>Home</button>
-              <button onClick={() => scrollToSection('menu')} className={`transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'}`}>Menu</button>
-              <button onClick={() => scrollToSection('about')} className={`transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'}`}>Our Story</button>
-              <button onClick={() => scrollToSection('testimonials')} className={`transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'}`}>Reviews</button>
-              <a href="tel:+18315214619" className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition">Order Now</a>
+            <div className="hidden md:flex space-x-8 items-center">
+              <button onClick={() => scrollToSection('home')} className={`transition-colors font-medium ${isScrolled ? 'text-gray-700 hover:text-amber-800' : 'text-white hover:text-amber-200'}`}>Home</button>
+              <button onClick={() => scrollToSection('menu')} className={`transition-colors font-medium ${isScrolled ? 'text-gray-700 hover:text-amber-800' : 'text-white hover:text-amber-200'}`}>Menu</button>
+              <button onClick={() => scrollToSection('about')} className={`transition-colors font-medium ${isScrolled ? 'text-gray-700 hover:text-amber-800' : 'text-white hover:text-amber-200'}`}>Our Story</button>
+              <button onClick={() => scrollToSection('testimonials')} className={`transition-colors font-medium ${isScrolled ? 'text-gray-700 hover:text-amber-800' : 'text-white hover:text-amber-200'}`}>Reviews</button>
+              <a href="tel:+18315214619" className="bg-amber-700 text-white px-6 py-2 rounded-lg hover:bg-amber-800 transition font-semibold">Order Now</a>
             </div>
 
             {/* Mobile Menu Button */}
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden">
-              {isMenuOpen ? <X size={24} className={isScrolled ? 'text-gray-800' : 'text-white'} /> : <Menu size={24} className={isScrolled ? 'text-gray-800' : 'text-white'} />}
+              {isMenuOpen ? <X size={24} className={isScrolled ? 'text-gray-900' : 'text-white'} /> : <Menu size={24} className={isScrolled ? 'text-gray-900' : 'text-white'} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t">
+          <div className="md:hidden bg-white border-t border-amber-200">
             <div className="px-4 py-2 space-y-2">
               <button onClick={() => scrollToSection('home')} className="block w-full text-left py-2 text-gray-700">Home</button>
               <button onClick={() => scrollToSection('menu')} className="block w-full text-left py-2 text-gray-700">Menu</button>
               <button onClick={() => scrollToSection('about')} className="block w-full text-left py-2 text-gray-700">Our Story</button>
               <button onClick={() => scrollToSection('testimonials')} className="block w-full text-left py-2 text-gray-700">Reviews</button>
-              <a href="tel:+18315214619" className="block w-full text-center bg-orange-600 text-white px-4 py-2 rounded-lg mt-2">Order Now</a>
+              <a href="tel:+18315214619" className="block w-full text-center bg-amber-700 text-white px-4 py-2 rounded-lg mt-2 font-semibold">Order Now</a>
             </div>
           </div>
         )}
@@ -290,7 +298,7 @@ const IndianSoulFood = () => {
               }`}
             >
               {/* Background gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-900 via-red-900 to-yellow-900 opacity-80"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-amber-950 to-stone-900 opacity-85"></div>
               
               {/* Placeholder for background image */}
               <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
@@ -322,19 +330,19 @@ const IndianSoulFood = () => {
         
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 drop-shadow-2xl leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 drop-shadow-2xl leading-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
             {heroImages[currentSlide].title}
             <br />
-            <span className="text-orange-400">{heroImages[currentSlide].subtitle}</span>
+            <span className="text-amber-400">{heroImages[currentSlide].subtitle}</span>
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 md:mb-12 max-w-3xl mx-auto drop-shadow-lg">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 md:mb-12 max-w-3xl mx-auto drop-shadow-lg font-light">
             Experience the rich flavors and aromatic spices of traditional Indian cooking. 
             Perfect for delivery, catering, and special events.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button 
               onClick={() => scrollToSection('menu')} 
-              className="bg-green-500 text-white px-8 md:px-10 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:bg-green-600 transition transform hover:scale-105 shadow-2xl"
+              className="bg-amber-700 text-white px-8 md:px-10 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:bg-amber-800 transition transform hover:scale-105 shadow-2xl"
             >
               VIEW MENU
             </button>
@@ -346,7 +354,7 @@ const IndianSoulFood = () => {
             </a>
           </div>
           <div className="mt-8 md:mt-12 flex items-center justify-center text-gray-300">
-            <MapPin size={20} className="mr-2 text-orange-400" />
+            <MapPin size={20} className="mr-2 text-amber-400" />
             <span className="text-base md:text-lg">North Harvard, Los Angeles, CA</span>
           </div>
         </div>
@@ -369,11 +377,11 @@ const IndianSoulFood = () => {
       </section>
 
       {/* Menu Section */}
-      <section id="menu" className="py-20 bg-white">
+      <section id="menu" className="py-20 bg-stone-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Menu</h2>
-            <p className="text-xl text-gray-600">Discover authentic flavors crafted with love and tradition</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>Our Menu</h2>
+            <p className="text-xl text-gray-600 font-light">Discover authentic flavors crafted with love and tradition</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -381,21 +389,21 @@ const IndianSoulFood = () => {
               <div 
                 key={item.id} 
                 onClick={() => setSelectedDish(item)}
-                className="bg-white border-2 border-gray-200 rounded-xl overflow-hidden hover:shadow-xl transition cursor-pointer transform hover:-translate-y-1"
+                className="bg-white border-2 border-amber-200 rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-amber-900/10 transition cursor-pointer transform hover:-translate-y-1"
               >
-                <div className="bg-gradient-to-br from-orange-100 to-yellow-100 h-48 flex items-center justify-center">
+                <div className="bg-gradient-to-br from-amber-100 to-stone-200 h-48 flex items-center justify-center">
                   <div className="text-center">
-                    <ChefHat size={60} className="mx-auto text-gray-300 mb-2" />
-                    <p className="text-gray-400 text-sm">Food Image</p>
+                    <ChefHat size={60} className="mx-auto text-amber-700 mb-2" />
+                    <p className="text-gray-500 text-sm">Food Image</p>
                   </div>
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-900">{item.name}</h3>
-                    <span className="text-orange-600 font-bold text-lg">{item.price}</span>
+                    <h3 className="text-xl font-bold text-gray-900" style={{ fontFamily: 'Playfair Display, serif' }}>{item.name}</h3>
+                    <span className="text-amber-800 font-bold text-lg">{item.price}</span>
                   </div>
-                  <p className="text-sm text-orange-600 mb-2">{item.category}</p>
-                  <p className="text-gray-600 mb-4">{item.description}</p>
+                  <p className="text-sm text-amber-700 mb-2 font-medium">{item.category}</p>
+                  <p className="text-gray-600 mb-4 font-light">{item.description}</p>
                   <div className="flex justify-between items-center text-sm">
                     <span className={`px-3 py-1 rounded-full ${item.vegetarian ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                       {item.vegetarian ? '🌱 Vegetarian' : '🍖 Non-Veg'}
@@ -411,39 +419,39 @@ const IndianSoulFood = () => {
 
       {/* Food Detail Modal */}
       {selectedDish && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedDish(null)}>
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4" onClick={() => setSelectedDish(null)}>
+          <div className="bg-white border-2 border-amber-300 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="relative">
-              <button onClick={() => setSelectedDish(null)} className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition">
+              <button onClick={() => setSelectedDish(null)} className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition text-gray-700">
                 <X size={24} />
               </button>
-              <div className="bg-gradient-to-br from-orange-100 to-yellow-100 h-64 flex items-center justify-center">
+              <div className="bg-gradient-to-br from-amber-100 to-stone-200 h-64 flex items-center justify-center">
                 <div className="text-center">
-                  <ChefHat size={80} className="mx-auto text-gray-300 mb-2" />
-                  <p className="text-gray-400">Food Image Placeholder</p>
+                  <ChefHat size={80} className="mx-auto text-amber-700 mb-2" />
+                  <p className="text-gray-500">Food Image Placeholder</p>
                 </div>
               </div>
             </div>
             <div className="p-8">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-2">{selectedDish.name}</h2>
-                  <p className="text-orange-600 font-semibold">{selectedDish.category}</p>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>{selectedDish.name}</h2>
+                  <p className="text-amber-700 font-semibold">{selectedDish.category}</p>
                 </div>
-                <span className="text-3xl font-bold text-orange-600">{selectedDish.price}</span>
+                <span className="text-3xl font-bold text-amber-800">{selectedDish.price}</span>
               </div>
-              <p className="text-gray-700 text-lg mb-6">{selectedDish.description}</p>
+              <p className="text-gray-700 text-lg mb-6 font-light">{selectedDish.description}</p>
               <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="bg-stone-50 p-4 rounded-lg border border-amber-200">
                   <p className="text-sm text-gray-500 mb-1">Spice Level</p>
                   <p className="font-semibold text-gray-900">🌶️ {selectedDish.spiceLevel}</p>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="bg-stone-50 p-4 rounded-lg border border-amber-200">
                   <p className="text-sm text-gray-500 mb-1">Dietary</p>
                   <p className="font-semibold text-gray-900">{selectedDish.vegetarian ? '🌱 Vegetarian' : '🍖 Non-Vegetarian'}</p>
                 </div>
               </div>
-              <a href="tel:+18315214619" className="block w-full bg-orange-600 text-white text-center px-6 py-4 rounded-lg text-lg font-semibold hover:bg-orange-700 transition">
+              <a href="tel:+18315214619" className="block w-full bg-amber-700 text-white text-center px-6 py-4 rounded-lg text-lg font-bold hover:bg-amber-800 transition">
                 <Phone className="inline mr-2" size={20} />
                 Call to Order
               </a>
@@ -453,12 +461,12 @@ const IndianSoulFood = () => {
       )}
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-gradient-to-br from-orange-50 to-yellow-50">
+      <section id="about" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Story</h2>
-              <div className="space-y-4 text-gray-700 text-lg">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Our Story</h2>
+              <div className="space-y-4 text-gray-700 text-lg font-light">
                 <p>
                   Indian Soul Food was born from a passion for authentic Indian cuisine and a desire to share the rich culinary heritage of India with the Los Angeles community. Since opening our doors in 2023, we've been committed to bringing traditional flavors and time-honored recipes to your table.
                 </p>
@@ -468,29 +476,29 @@ const IndianSoulFood = () => {
                 <p>
                   We specialize in delivery service, making it easy for you to enjoy restaurant-quality Indian food in the comfort of your home. We also offer catering for events of all sizes, from intimate family gatherings to large corporate functions, bringing the warmth and flavor of Indian hospitality to your special occasions.
                 </p>
-                <p className="font-semibold text-orange-600">
+                <p className="font-semibold text-amber-800">
                   Our mission is simple: to serve food that touches the soul and brings people together, one meal at a time.
                 </p>
               </div>
             </div>
             <div className="space-y-6">
-              <div className="bg-white p-8 rounded-xl shadow-lg">
-                <Users className="text-orange-600 mb-4" size={40} />
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Catering Services</h3>
-                <p className="text-gray-600 mb-4">
+              <div className="bg-stone-50 border-2 border-amber-200 p-8 rounded-xl shadow-lg">
+                <Users className="text-amber-700 mb-4" size={40} />
+                <h3 className="text-2xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Playfair Display, serif' }}>Catering Services</h3>
+                <p className="text-gray-700 mb-4 font-light">
                   Planning an event? Let us handle the food! We cater weddings, corporate events, birthday parties, and more. Customizable menus to suit your needs and guest count.
                 </p>
-                <a href="tel:+18315214619" className="text-orange-600 font-semibold hover:text-orange-700">
+                <a href="tel:+18315214619" className="text-amber-800 font-semibold hover:text-amber-900">
                   Call for Catering Inquiry →
                 </a>
               </div>
-              <div className="bg-white p-8 rounded-xl shadow-lg">
-                <Calendar className="text-orange-600 mb-4" size={40} />
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Food Events</h3>
-                <p className="text-gray-600 mb-4">
+              <div className="bg-stone-50 border-2 border-amber-200 p-8 rounded-xl shadow-lg">
+                <Calendar className="text-amber-700 mb-4" size={40} />
+                <h3 className="text-2xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Playfair Display, serif' }}>Food Events</h3>
+                <p className="text-gray-700 mb-4 font-light">
                   Experience authentic Indian cooking at our special food events. From cooking demonstrations to tasting sessions, we bring the culture and cuisine together.
                 </p>
-                <a href="tel:+18315214619" className="text-orange-600 font-semibold hover:text-orange-700">
+                <a href="tel:+18315214619" className="text-amber-800 font-semibold hover:text-amber-900">
                   Inquire About Events →
                 </a>
               </div>
@@ -500,25 +508,25 @@ const IndianSoulFood = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-white">
+      <section id="testimonials" className="py-20 bg-stone-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">What Our Customers Say</h2>
-            <p className="text-xl text-gray-600">Loved by food enthusiasts across Los Angeles</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>What Our Customers Say</h2>
+            <p className="text-xl text-gray-600 font-light">Loved by food enthusiasts across Los Angeles</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-gradient-to-br from-orange-50 to-yellow-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition">
+              <div key={index} className="bg-white border-2 border-amber-200 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-amber-900/10 transition">
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="text-yellow-500 fill-current" size={20} />
+                    <Star key={i} className="text-amber-500 fill-current" size={20} />
                   ))}
                 </div>
-                <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                <div className="border-t border-orange-200 pt-4">
+                <p className="text-gray-700 mb-4 italic font-light">"{testimonial.text}"</p>
+                <div className="border-t border-amber-200 pt-4">
                   <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                  <p className="text-sm text-gray-500">{testimonial.date}</p>
+                  <p className="text-sm text-gray-500 font-light">{testimonial.date}</p>
                 </div>
               </div>
             ))}
@@ -527,41 +535,41 @@ const IndianSoulFood = () => {
       </section>
 
       {/* Footer / Contact */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 text-white py-12 border-t-2 border-amber-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <ChefHat size={32} className="text-orange-500" />
-                <span className="text-2xl font-bold">Indian Soul Food</span>
+                <ChefHat size={32} className="text-amber-500" />
+                <span className="text-2xl font-bold text-amber-500" style={{ fontFamily: 'Playfair Display, serif' }}>Indian Soul Food</span>
               </div>
-              <p className="text-gray-400">
+              <p className="text-gray-400 font-light">
                 Authentic Indian cuisine delivered to your door. Catering and events available.
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-4">Contact Us</h3>
-              <div className="space-y-2 text-gray-400">
+              <h3 className="text-xl font-bold mb-4 text-amber-500" style={{ fontFamily: 'Playfair Display, serif' }}>Contact Us</h3>
+              <div className="space-y-2 text-gray-400 font-light">
                 <p className="flex items-center">
-                  <Phone size={18} className="mr-2 text-orange-500" />
-                  <a href="tel:+18315214619" className="hover:text-white transition">+1 (831) 521-4619</a>
+                  <Phone size={18} className="mr-2 text-amber-500" />
+                  <a href="tel:+18315214619" className="hover:text-amber-400 transition">+1 (831) 521-4619</a>
                 </p>
                 <p className="flex items-center">
-                  <MapPin size={18} className="mr-2 text-orange-500" />
+                  <MapPin size={18} className="mr-2 text-amber-500" />
                   North Harvard, Los Angeles, CA
                 </p>
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-4">Hours</h3>
-              <div className="space-y-2 text-gray-400">
+              <h3 className="text-xl font-bold mb-4 text-amber-500" style={{ fontFamily: 'Playfair Display, serif' }}>Hours</h3>
+              <div className="space-y-2 text-gray-400 font-light">
                 <p>Monday - Sunday</p>
                 <p className="font-semibold text-white">11:00 AM - 10:00 PM</p>
                 <p className="text-sm mt-4">Call us for delivery, catering, or event inquiries</p>
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <div className="border-t border-amber-800 mt-8 pt-8 text-center text-gray-400 font-light">
             <p>&copy; 2024 Indian Soul Food. All rights reserved.</p>
           </div>
         </div>
