@@ -161,75 +161,74 @@ const IndianSoulFood = () => {
     }
   ];
 
-  const testimonials = [
+   const testimonials = [
     {
-      name: "Sarah Martinez",
+      name: "Roei C.",
       date: "June 6, 2023",
       rating: 5,
       text: "The butter chicken is absolutely divine! Indian Soul Food catered our office party and everyone was blown away. Authentic flavors that transport you straight to India."
     },
     {
-      name: "James Chen",
+      name: "Berna L.",
       date: "August 14, 2023",
       rating: 5,
       text: "Best Indian food delivery in LA! The biryani is perfectly spiced and the portions are generous. Been ordering weekly since they opened."
     },
     {
-      name: "Priya Patel",
+      name: "Pankaj B.",
       date: "November 22, 2023",
       rating: 5,
       text: "As someone from India, I'm very particular about authentic flavors. Indian Soul Food nails it every time. The paneer tikka masala tastes just like home!"
     },
     {
-      name: "Michael Rodriguez",
+      name: "Lisa B.",
       date: "February 18, 2024",
       rating: 5,
       text: "They catered our wedding reception and it was phenomenal! Guests are still talking about the food. Professional service and incredible taste."
     },
     {
-      name: "Emily Thompson",
+      name: "Michael N.",
       date: "June 9, 2024",
       rating: 5,
       text: "The tandoori chicken is my go-to! Always fresh, perfectly cooked, and delivered hot. Customer service is also top-notch."
     },
     {
-      name: "David Kim",
+      name: "Akie P.",
       date: "October 3, 2024",
       rating: 5,
       text: "Hosted a corporate event with their catering service. The variety and quality of food impressed all 50 guests. Highly recommend for any event!"
     },
     {
-      name: "Rachel Foster",
+      name: "Ian S.",
       date: "January 27, 2025",
       rating: 5,
       text: "Discovered Indian Soul Food through a friend's recommendation and I'm hooked! The lamb rogan josh is incredible. Perfect spice level and tender meat every time."
     },
     {
-      name: "Antonio Gomez",
+      name: "Kiara D.",
       date: "April 12, 2025",
       rating: 5,
       text: "Amazing experience from start to finish! Called to place my order and the staff was so helpful with recommendations. The samosas were crispy perfection!"
     },
     {
-      name: "Tyler Brooks",
+      name: "NJ",
       date: "April 30, 2025",
       rating: 5,
-      text: "Called them to cater my girlfriend's birthday celebration and they made it so special! The food was the highlight of the party. Everyone kept asking where we got the catering from. Thank you for making her day memorable!"
+      text: "I wanted to surprise my date for her birthday, but it was all last-minute — so I decided to order Indian food at home. Best decision ever! The food arrived right on time, everything was warm, flavorful, and beautifully packed. The butter chicken and biryani were a huge hit — she absolutely loved it! It turned a simple home setup into a really special night. Totally saving this spot for future surprises!"
     },
     {
-      name: "Lisa Wang",
+      name: "Ciana D.",
       date: "July 5, 2025",
       rating: 5,
       text: "They catered our company's annual summer party and absolutely crushed it! 100+ employees and everyone loved the variety. Will definitely use them again!"
     },
     {
-      name: "Marcus Johnson",
+      name: "Amhet P.",
       date: "September 28, 2025",
-      rating: 5,
+      rating: 4,
       text: "I'm not usually big on Indian food, but Indian Soul Food changed my mind completely. The dal makhani is comfort food at its finest. Delivery is always prompt too!"
     }
   ];
-
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
