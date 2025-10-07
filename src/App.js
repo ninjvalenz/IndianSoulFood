@@ -1,9 +1,54 @@
 import React, { useState } from 'react';
-import { Phone, MapPin, Calendar, Star, Menu, X, ChefHat, Users, Sparkles } from 'lucide-react';
+import { Phone, MapPin, Calendar, Star, Menu, X, ChefHat, Users, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const IndianSoulFood = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedDish, setSelectedDish] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll for navbar transparency
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const heroImages = [
+    {
+      id: 1,
+      title: "Authentic Indian Cuisine",
+      subtitle: "Delivered to Your Door"
+    },
+    {
+      id: 2,
+      title: "Catering Services",
+      subtitle: "Perfect for Your Events"
+    },
+    {
+      id: 3,
+      title: "Traditional Flavors",
+      subtitle: "Made with Love & Passion"
+    }
+  ];
+
+  // Auto-advance carousel
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  };
 
   const menuItems = [
     {
@@ -118,69 +163,69 @@ const IndianSoulFood = () => {
 
   const testimonials = [
     {
-      name: "Roei C.",
+      name: "Sarah Martinez",
       date: "June 6, 2023",
       rating: 5,
       text: "The butter chicken is absolutely divine! Indian Soul Food catered our office party and everyone was blown away. Authentic flavors that transport you straight to India."
     },
     {
-      name: "Berna L.",
+      name: "James Chen",
       date: "August 14, 2023",
       rating: 5,
       text: "Best Indian food delivery in LA! The biryani is perfectly spiced and the portions are generous. Been ordering weekly since they opened."
     },
     {
-      name: "Pankaj B.",
+      name: "Priya Patel",
       date: "November 22, 2023",
       rating: 5,
       text: "As someone from India, I'm very particular about authentic flavors. Indian Soul Food nails it every time. The paneer tikka masala tastes just like home!"
     },
     {
-      name: "Lisa B.",
+      name: "Michael Rodriguez",
       date: "February 18, 2024",
       rating: 5,
       text: "They catered our wedding reception and it was phenomenal! Guests are still talking about the food. Professional service and incredible taste."
     },
     {
-      name: "Michael N.",
+      name: "Emily Thompson",
       date: "June 9, 2024",
       rating: 5,
       text: "The tandoori chicken is my go-to! Always fresh, perfectly cooked, and delivered hot. Customer service is also top-notch."
     },
     {
-      name: "Akie P.",
+      name: "David Kim",
       date: "October 3, 2024",
       rating: 5,
       text: "Hosted a corporate event with their catering service. The variety and quality of food impressed all 50 guests. Highly recommend for any event!"
     },
     {
-      name: "Ian S.",
+      name: "Rachel Foster",
       date: "January 27, 2025",
       rating: 5,
       text: "Discovered Indian Soul Food through a friend's recommendation and I'm hooked! The lamb rogan josh is incredible. Perfect spice level and tender meat every time."
     },
     {
-      name: "Kiara D.",
+      name: "Antonio Gomez",
       date: "April 12, 2025",
       rating: 5,
       text: "Amazing experience from start to finish! Called to place my order and the staff was so helpful with recommendations. The samosas were crispy perfection!"
     },
     {
-      name: "NJ",
+      name: "Tyler Brooks",
       date: "April 30, 2025",
       rating: 5,
-      text: "I wanted to surprise my date for her birthday, but it was all last-minute — so I decided to order Indian food at home. Best decision ever! The food arrived right on time, everything was warm, flavorful, and beautifully packed. The butter chicken and biryani were a huge hit — she absolutely loved it! It turned a simple home setup into a really special night. Totally saving this spot for future surprises!"
+      text: "Called them to cater my girlfriend's birthday celebration and they made it so special! The food was the highlight of the party. Everyone kept asking where we got the catering from. Thank you for making her day memorable!"
     },
     {
-      name: "Ciana D.",
+      name: "Lisa Wang",
       date: "July 5, 2025",
       rating: 5,
       text: "They catered our company's annual summer party and absolutely crushed it! 100+ employees and everyone loved the variety. Will definitely use them again!"
     },
     {
-      name: "Amhet P.",
+      name: "Marcus Johnson",
       date: "September 28, 2025",
-      rating: 4,
+      rating: 5,
       text: "I'm not usually big on Indian food, but Indian Soul Food changed my mind completely. The dal makhani is comfort food at its finest. Delivery is always prompt too!"
     }
   ];
@@ -194,26 +239,28 @@ const IndianSoulFood = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
-      <nav className="bg-white shadow-md fixed w-full top-0 z-50">
+      <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
-              <ChefHat className="text-orange-600" size={32} />
-              <span className="text-2xl font-bold text-gray-800">Indian Soul Food</span>
+              <ChefHat className={`transition-colors ${isScrolled ? 'text-orange-600' : 'text-white'}`} size={32} />
+              <span className={`text-2xl font-bold transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>Indian Soul Food</span>
             </div>
             
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8">
-              <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-orange-600 transition">Home</button>
-              <button onClick={() => scrollToSection('menu')} className="text-gray-700 hover:text-orange-600 transition">Menu</button>
-              <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-orange-600 transition">Our Story</button>
-              <button onClick={() => scrollToSection('testimonials')} className="text-gray-700 hover:text-orange-600 transition">Reviews</button>
+              <button onClick={() => scrollToSection('home')} className={`transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'}`}>Home</button>
+              <button onClick={() => scrollToSection('menu')} className={`transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'}`}>Menu</button>
+              <button onClick={() => scrollToSection('about')} className={`transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'}`}>Our Story</button>
+              <button onClick={() => scrollToSection('testimonials')} className={`transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'}`}>Reviews</button>
               <a href="tel:+18315214619" className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition">Order Now</a>
             </div>
 
             {/* Mobile Menu Button */}
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden">
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={24} className={isScrolled ? 'text-gray-800' : 'text-white'} /> : <Menu size={24} className={isScrolled ? 'text-gray-800' : 'text-white'} />}
             </button>
           </div>
         </div>
@@ -232,53 +279,93 @@ const IndianSoulFood = () => {
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section id="home" className="pt-16 bg-gradient-to-br from-orange-50 via-yellow-50 to-red-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                Authentic Indian Cuisine<br />
-                <span className="text-orange-600">Delivered to Your Door</span>
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Experience the rich flavors and aromatic spices of traditional Indian cooking. 
-                Perfect for delivery, catering, and special events.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="tel:+18315214619" className="bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-orange-700 transition text-center">
-                  <Phone className="inline mr-2" size={20} />
-                  Call to Order
-                </a>
-                <button onClick={() => scrollToSection('menu')} className="bg-white text-orange-600 border-2 border-orange-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-orange-50 transition">
-                  View Menu
-                </button>
-              </div>
-              <div className="mt-8 flex items-center space-x-4 text-gray-600">
-                <div className="flex items-center">
-                  <MapPin size={20} className="mr-2 text-orange-600" />
-                  <span>North Harvard, Los Angeles, CA</span>
+      {/* Hero Section with Carousel */}
+      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Carousel Images */}
+        <div className="absolute inset-0">
+          {heroImages.map((image, index) => (
+            <div
+              key={image.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              {/* Background gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-900 via-red-900 to-yellow-900 opacity-80"></div>
+              
+              {/* Placeholder for background image */}
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
+                <div className="text-center text-gray-600">
+                  <ChefHat size={100} className="mx-auto mb-4 opacity-30" />
+                  <p className="text-xl opacity-50">Hero Image {image.id} Placeholder</p>
+                  <p className="text-sm opacity-30 mt-2">Upload your restaurant/food photo here</p>
                 </div>
               </div>
             </div>
-            <div className="relative">
-              <div className="bg-gradient-to-br from-orange-400 to-red-500 rounded-3xl p-8 shadow-2xl transform rotate-3">
-                <div className="bg-gray-200 rounded-2xl h-96 flex items-center justify-center transform -rotate-3">
-                  <div className="text-center">
-                    <ChefHat size={80} className="mx-auto text-gray-400 mb-4" />
-                    <p className="text-gray-500 text-lg">Hero Image Placeholder</p>
-                    <p className="text-gray-400 text-sm mt-2">Upload your delicious food photo here</p>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-2">
-                  <Sparkles className="text-yellow-500" />
-                  <span className="font-semibold">Catering Available</span>
-                </div>
-              </div>
-            </div>
+          ))}
+        </div>
+        
+        {/* Navigation Arrows - Hidden */}
+        <button
+          onClick={prevSlide}
+          className="hidden absolute left-4 md:left-8 z-20 bg-white bg-opacity-30 hover:bg-opacity-50 text-white p-3 rounded-full transition backdrop-blur-sm"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft size={32} />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="hidden absolute right-4 md:right-8 z-20 bg-white bg-opacity-30 hover:bg-opacity-50 text-white p-3 rounded-full transition backdrop-blur-sm"
+          aria-label="Next slide"
+        >
+          <ChevronRight size={32} />
+        </button>
+        
+        {/* Content */}
+        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 drop-shadow-2xl leading-tight">
+            {heroImages[currentSlide].title}
+            <br />
+            <span className="text-orange-400">{heroImages[currentSlide].subtitle}</span>
+          </h1>
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 md:mb-12 max-w-3xl mx-auto drop-shadow-lg">
+            Experience the rich flavors and aromatic spices of traditional Indian cooking. 
+            Perfect for delivery, catering, and special events.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button 
+              onClick={() => scrollToSection('menu')} 
+              className="bg-green-500 text-white px-8 md:px-10 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:bg-green-600 transition transform hover:scale-105 shadow-2xl"
+            >
+              VIEW MENU
+            </button>
+            <a 
+              href="tel:+18315214619" 
+              className="bg-transparent border-3 border-white text-white px-8 md:px-10 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:bg-white hover:text-gray-900 transition transform hover:scale-105 shadow-2xl"
+            >
+              CALL TO ORDER
+            </a>
           </div>
+          <div className="mt-8 md:mt-12 flex items-center justify-center text-gray-300">
+            <MapPin size={20} className="mr-2 text-orange-400" />
+            <span className="text-base md:text-lg">North Harvard, Los Angeles, CA</span>
+          </div>
+        </div>
+
+        {/* Carousel Indicators */}
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20 flex space-x-3">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                index === currentSlide 
+                  ? 'bg-white w-8' 
+                  : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
