@@ -317,51 +317,61 @@ const IndianSoulFood = () => {
               }`}
             >
               {/* Background gradient overlay with texture */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-amber-950/85 to-stone-900/90"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,119,6,0.1),transparent_50%)]"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-amber-950/50 to-stone-900/60 z-10"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,119,6,0.05),transparent_50%)] z-10"></div>
               
-              {/* Placeholder for background image */}
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-800 to-stone-900">
-                <div className="text-center text-gray-600">
-                  <ChefHat size={100} className="mx-auto mb-4 opacity-20" />
-                  <p className="text-xl opacity-40">Hero Image {image.id} Placeholder</p>
-                  <p className="text-sm opacity-20 mt-2">Upload your restaurant/food photo here</p>
-                </div>
-              </div>
+              {/* Background image or placeholder */}
+              {index === 0 ? (
+                <img 
+                  src="/biryani_herobanner.jpg" 
+                  alt="Indian Soul Food - Authentic Biryani"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : index === 1 ? (
+                <img 
+                  src="/catering_herobanner.jpg" 
+                  alt="Indian Soul Food - Catering Services"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : (
+                <img 
+                  src="/spices_herobanner.jpg" 
+                  alt="Indian Soul Food - Traditional Spices"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
             </div>
           ))}
         </div>
         
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-          <div className="bg-black/20 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10 shadow-2xl">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 drop-shadow-2xl leading-tight animate-fade-in" style={{ fontFamily: 'Playfair Display, serif' }}>
-              {heroImages[currentSlide].title}
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">{heroImages[currentSlide].subtitle}</span>
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-100 mb-8 md:mb-12 max-w-3xl mx-auto drop-shadow-lg font-light">
-              Experience the rich flavors and aromatic spices of traditional Indian cooking. 
-              Perfect for delivery, catering, and special events.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button 
-                onClick={() => scrollToSection('menu')} 
-                className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-10 md:px-12 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:from-amber-700 hover:to-amber-800 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-amber-500/50"
-              >
-                VIEW MENU
-              </button>
-              <a 
-                href="tel:+18315214619" 
-                className="bg-white/10 backdrop-blur-md border-2 border-white text-white px-10 md:px-12 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:bg-white hover:text-gray-900 transition-all duration-300 transform hover:scale-105 shadow-2xl"
-              >
-                CALL TO ORDER
-              </a>
-            </div>
-            <div className="mt-8 md:mt-12 flex items-center justify-center text-gray-200">
-              <MapPin size={20} className="mr-2 text-amber-400" />
-              <span className="text-base md:text-lg">North Harvard, Los Angeles, CA</span>
-            </div>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 drop-shadow-2xl leading-tight animate-fade-in" style={{ fontFamily: 'Playfair Display, serif' }}>
+            {heroImages[currentSlide].title}
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">{heroImages[currentSlide].subtitle}</span>
+          </h1>
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-100 mb-8 md:mb-12 max-w-3xl mx-auto drop-shadow-lg font-light">
+            Experience the rich flavors and aromatic spices of traditional Indian cooking. 
+            Perfect for delivery, catering, and special events.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button 
+              onClick={() => scrollToSection('menu')} 
+              className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-10 md:px-12 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:from-amber-700 hover:to-amber-800 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-amber-500/50"
+            >
+              VIEW MENU
+            </button>
+            <a 
+              href="tel:+18315214619" 
+              className="bg-white/10 backdrop-blur-md border-2 border-white text-white px-10 md:px-12 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:bg-white hover:text-gray-900 transition-all duration-300 transform hover:scale-105 shadow-2xl"
+            >
+              CALL TO ORDER
+            </a>
+          </div>
+          <div className="mt-8 md:mt-12 flex items-center justify-center text-gray-200">
+            <MapPin size={20} className="mr-2 text-amber-400" />
+            <span className="text-base md:text-lg">North Harvard, Los Angeles, CA</span>
           </div>
         </div>
 
@@ -640,7 +650,7 @@ const IndianSoulFood = () => {
             </div>
           </div>
           <div className="border-t border-amber-900/50 mt-12 pt-8 text-center text-gray-400 font-light">
-            <div>&copy; 2023 Indian Soul Food. All rights reserved.</div>
+            <div>&copy; 2024 Indian Soul Food. All rights reserved.</div>
           </div>
         </div>
       </footer>
