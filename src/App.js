@@ -253,8 +253,12 @@ const IndianSoulFood = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
-              <div className={`p-2 rounded-xl transition-all duration-300 ${isScrolled ? 'bg-gradient-to-br from-amber-100 to-amber-200 shadow-lg' : ''}`}>
-                <ChefHat className={`transition-colors duration-300 ${isScrolled ? 'text-amber-900' : 'text-white drop-shadow-lg'}`} size={36} />
+              <div className={`transition-all duration-300 ${isScrolled ? 'w-14 h-14' : 'w-16 h-16'}`}>
+                <img 
+                  src="/indian_soul_food_logo.png" 
+                  alt="Indian Soul Food Logo" 
+                  className="w-full h-full object-contain"
+                />
               </div>
               <span className={`text-2xl font-bold transition-all duration-300 ${isScrolled ? 'text-gray-900' : 'text-white drop-shadow-2xl'}`} style={{ fontFamily: 'Playfair Display, serif' }}>
                 Indian Soul Food
@@ -423,8 +427,8 @@ const IndianSoulFood = () => {
                 <div className="relative bg-gradient-to-br from-amber-50 to-stone-100 h-56 flex items-center justify-center overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-amber-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="text-center relative z-10">
-                    <ChefHat size={70} className="mx-auto text-amber-700/40 mb-2 transform group-hover:scale-110 transition-transform duration-500" />
-                    <p className="text-gray-500 text-sm font-medium">Food Image</p>
+                    {/* <ChefHat size={70} className="mx-auto text-amber-700/40 mb-2 transform group-hover:scale-110 transition-transform duration-500" />
+                    <p className="text-gray-500 text-sm font-medium">Food Image</p> */}
                   </div>
                 </div>
                 <div className="p-6 bg-gradient-to-b from-white to-amber-50/30">
@@ -458,8 +462,8 @@ const IndianSoulFood = () => {
               <div className="bg-gradient-to-br from-amber-100 to-stone-200 h-72 flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,119,6,0.1),transparent_70%)]"></div>
                 <div className="text-center relative z-10">
-                  <ChefHat size={100} className="mx-auto text-amber-700/50 mb-2" />
-                  <p className="text-gray-500 font-medium">Food Image Placeholder</p>
+                  {/* <ChefHat size={100} className="mx-auto text-amber-700/50 mb-2" />
+                  <p className="text-gray-500 font-medium">Food Image Placeholder</p> */}
                 </div>
               </div>
             </div>
@@ -612,9 +616,11 @@ const IndianSoulFood = () => {
           <div className="grid md:grid-cols-3 gap-12">
             <div>
               <div className="flex items-center space-x-3 mb-6">
-                <div className="bg-gradient-to-br from-amber-600 to-amber-700 p-3 rounded-xl shadow-lg">
-                  <ChefHat size={32} className="text-white" />
-                </div>
+                <img 
+                  src="/indian_soul_food_logo_black.png" 
+                  alt="Indian Soul Food Logo" 
+                  className="w-12 h-12 object-contain"
+                />
                 <span className="text-2xl font-bold text-amber-400" style={{ fontFamily: 'Playfair Display, serif' }}>
                   Indian Soul Food
                 </span>
