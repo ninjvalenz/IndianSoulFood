@@ -1,9 +1,62 @@
 import React, { useState } from 'react';
-import { Phone, MapPin, Calendar, Star, Menu, X, ChefHat, Users, Sparkles } from 'lucide-react';
+import { Phone, MapPin, Calendar, Star, Menu, X, ChefHat, Users, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const IndianSoulFood = () => {
+  // Load Google Fonts
+  React.useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }, []);
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedDish, setSelectedDish] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll for navbar transparency
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const heroImages = [
+    {
+      id: 1,
+      title: "Authentic Indian Cuisine",
+      subtitle: "Delivered to Your Door"
+    },
+    {
+      id: 2,
+      title: "Catering Services",
+      subtitle: "Perfect for Your Events"
+    },
+    {
+      id: 3,
+      title: "Traditional Flavors",
+      subtitle: "Made with Love & Passion"
+    }
+  ];
+
+  // Auto-advance carousel
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  };
 
   const menuItems = [
     {
@@ -192,102 +245,176 @@ const IndianSoulFood = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-stone-50 to-amber-50" style={{ fontFamily: 'Poppins, sans-serif' }}>
       {/* Navigation */}
-      <nav className="bg-white shadow-md fixed w-full top-0 z-50">
+      <nav className={`fixed w-full top-0 z-50 transition-all duration-500 ${
+        isScrolled ? 'bg-white/95 backdrop-blur-md shadow-xl' : 'bg-transparent'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <ChefHat className="text-orange-600" size={32} />
-              <span className="text-2xl font-bold text-gray-800">Indian Soul Food</span>
+          <div className="flex justify-between items-center h-20">
+            <div className="flex items-center space-x-3">
+              <div className={`transition-all duration-300 ${isScrolled ? 'w-14 h-14' : 'w-16 h-16'}`}>
+                <img 
+                  src="/indian_soul_food_logo.png" 
+                  alt="Indian Soul Food Logo" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span className={`text-2xl font-bold transition-all duration-300 ${isScrolled ? 'text-gray-900' : 'text-white drop-shadow-2xl'}`} style={{ fontFamily: 'Playfair Display, serif' }}>
+                Indian Soul Food
+              </span>
             </div>
             
             {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-              <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-orange-600 transition">Home</button>
-              <button onClick={() => scrollToSection('menu')} className="text-gray-700 hover:text-orange-600 transition">Menu</button>
-              <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-orange-600 transition">Our Story</button>
-              <button onClick={() => scrollToSection('testimonials')} className="text-gray-700 hover:text-orange-600 transition">Reviews</button>
-              <a href="tel:+18315214619" className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition">Order Now</a>
+            <div className="hidden md:flex space-x-8 items-center">
+              <button onClick={() => scrollToSection('home')} className={`transition-all duration-300 font-medium relative group ${isScrolled ? 'text-gray-700 hover:text-amber-900' : 'text-white hover:text-amber-200'}`}>
+                Home
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amber-700 transition-all duration-300 group-hover:w-full`}></span>
+              </button>
+              <button onClick={() => scrollToSection('menu')} className={`transition-all duration-300 font-medium relative group ${isScrolled ? 'text-gray-700 hover:text-amber-900' : 'text-white hover:text-amber-200'}`}>
+                Menu
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amber-700 transition-all duration-300 group-hover:w-full`}></span>
+              </button>
+              <button onClick={() => scrollToSection('about')} className={`transition-all duration-300 font-medium relative group ${isScrolled ? 'text-gray-700 hover:text-amber-900' : 'text-white hover:text-amber-200'}`}>
+                Our Story
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amber-700 transition-all duration-300 group-hover:w-full`}></span>
+              </button>
+              <button onClick={() => scrollToSection('testimonials')} className={`transition-all duration-300 font-medium relative group ${isScrolled ? 'text-gray-700 hover:text-amber-900' : 'text-white hover:text-amber-200'}`}>
+                Reviews
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amber-700 transition-all duration-300 group-hover:w-full`}></span>
+              </button>
+              <a href="tel:+18315214619" className="bg-gradient-to-r from-amber-700 to-amber-800 text-white px-6 py-3 rounded-xl hover:from-amber-800 hover:to-amber-900 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
+                Order Now
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden">
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-all duration-300">
+              {isMenuOpen ? <X size={28} className={isScrolled ? 'text-gray-900' : 'text-white'} /> : <Menu size={28} className={isScrolled ? 'text-gray-900' : 'text-white'} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <div className="px-4 py-2 space-y-2">
-              <button onClick={() => scrollToSection('home')} className="block w-full text-left py-2 text-gray-700">Home</button>
-              <button onClick={() => scrollToSection('menu')} className="block w-full text-left py-2 text-gray-700">Menu</button>
-              <button onClick={() => scrollToSection('about')} className="block w-full text-left py-2 text-gray-700">Our Story</button>
-              <button onClick={() => scrollToSection('testimonials')} className="block w-full text-left py-2 text-gray-700">Reviews</button>
-              <a href="tel:+18315214619" className="block w-full text-center bg-orange-600 text-white px-4 py-2 rounded-lg mt-2">Order Now</a>
+          <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-amber-200 shadow-2xl">
+            <div className="px-4 py-4 space-y-3">
+              <button onClick={() => scrollToSection('home')} className="block w-full text-left py-3 px-4 text-gray-700 hover:bg-amber-50 rounded-lg transition-all duration-300">Home</button>
+              <button onClick={() => scrollToSection('menu')} className="block w-full text-left py-3 px-4 text-gray-700 hover:bg-amber-50 rounded-lg transition-all duration-300">Menu</button>
+              <button onClick={() => scrollToSection('about')} className="block w-full text-left py-3 px-4 text-gray-700 hover:bg-amber-50 rounded-lg transition-all duration-300">Our Story</button>
+              <button onClick={() => scrollToSection('testimonials')} className="block w-full text-left py-3 px-4 text-gray-700 hover:bg-amber-50 rounded-lg transition-all duration-300">Reviews</button>
+              <a href="tel:+18315214619" className="block w-full text-center bg-gradient-to-r from-amber-700 to-amber-800 text-white px-4 py-3 rounded-xl mt-2 font-semibold shadow-lg">Order Now</a>
             </div>
           </div>
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section id="home" className="pt-16 bg-gradient-to-br from-orange-50 via-yellow-50 to-red-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                Authentic Indian Cuisine<br />
-                <span className="text-orange-600">Delivered to Your Door</span>
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Experience the rich flavors and aromatic spices of traditional Indian cooking. 
-                Perfect for delivery, catering, and special events.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="tel:+18315214619" className="bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-orange-700 transition text-center">
-                  <Phone className="inline mr-2" size={20} />
-                  Call to Order
-                </a>
-                <button onClick={() => scrollToSection('menu')} className="bg-white text-orange-600 border-2 border-orange-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-orange-50 transition">
-                  View Menu
-                </button>
-              </div>
-              <div className="mt-8 flex items-center space-x-4 text-gray-600">
-                <div className="flex items-center">
-                  <MapPin size={20} className="mr-2 text-orange-600" />
-                  <span>North Harvard, Los Angeles, CA</span>
-                </div>
-              </div>
+      {/* Hero Section with Carousel */}
+      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Carousel Images */}
+        <div className="absolute inset-0">
+          {heroImages.map((image, index) => (
+            <div
+              key={image.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              {/* Background gradient overlay with texture */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-amber-950/50 to-stone-900/60 z-10"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,119,6,0.05),transparent_50%)] z-10"></div>
+              
+              {/* Background image or placeholder */}
+              {index === 0 ? (
+                <img 
+                  src="/biryani_herobanner.jpg" 
+                  alt="Indian Soul Food - Authentic Biryani"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : index === 1 ? (
+                <img 
+                  src="/catering_herobanner.jpg" 
+                  alt="Indian Soul Food - Catering Services"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : (
+                <img 
+                  src="/spices_herobanner.jpg" 
+                  alt="Indian Soul Food - Traditional Spices"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
             </div>
-            <div className="relative">
-              <div className="bg-gradient-to-br from-orange-400 to-red-500 rounded-3xl p-8 shadow-2xl transform rotate-3">
-                <div className="bg-gray-200 rounded-2xl h-96 flex items-center justify-center transform -rotate-3">
-                  <div className="text-center">
-                    <ChefHat size={80} className="mx-auto text-gray-400 mb-4" />
-                    <p className="text-gray-500 text-lg">Hero Image Placeholder</p>
-                    <p className="text-gray-400 text-sm mt-2">Upload your delicious food photo here</p>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-2">
-                  <Sparkles className="text-yellow-500" />
-                  <span className="font-semibold">Catering Available</span>
-                </div>
-              </div>
-            </div>
+          ))}
+        </div>
+        
+        {/* Content */}
+        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 drop-shadow-2xl leading-tight animate-fade-in" style={{ fontFamily: 'Playfair Display, serif' }}>
+            {heroImages[currentSlide].title}
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">{heroImages[currentSlide].subtitle}</span>
+          </h1>
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-100 mb-8 md:mb-12 max-w-3xl mx-auto drop-shadow-lg font-light">
+            Experience the rich flavors and aromatic spices of traditional Indian cooking. 
+            Perfect for delivery, catering, and special events.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button 
+              onClick={() => scrollToSection('menu')} 
+              className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-10 md:px-12 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:from-amber-700 hover:to-amber-800 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-amber-500/50"
+            >
+              VIEW MENU
+            </button>
+            <a 
+              href="tel:+18315214619" 
+              className="bg-white/10 backdrop-blur-md border-2 border-white text-white px-10 md:px-12 py-4 md:py-5 rounded-full text-base md:text-lg font-bold hover:bg-white hover:text-gray-900 transition-all duration-300 transform hover:scale-105 shadow-2xl"
+            >
+              CALL TO ORDER
+            </a>
+          </div>
+          <div className="mt-8 md:mt-12 flex items-center justify-center text-gray-200">
+            <MapPin size={20} className="mr-2 text-amber-400" />
+            <span className="text-base md:text-lg">North Harvard, Los Angeles, CA</span>
           </div>
         </div>
+
+        {/* Carousel Indicators */}
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20 flex space-x-3">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`rounded-full transition-all duration-300 ${
+                index === currentSlide 
+                  ? 'bg-white w-12 h-3 shadow-lg' 
+                  : 'bg-white/50 w-3 h-3 hover:bg-white/75'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Decorative element */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-stone-50 to-transparent"></div>
       </section>
 
       {/* Menu Section */}
-      <section id="menu" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Menu</h2>
-            <p className="text-xl text-gray-600">Discover authentic flavors crafted with love and tradition</p>
+      <section id="menu" className="py-24 bg-gradient-to-b from-stone-50 to-white relative">
+        {/* Decorative background */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(217,119,6,0.05),transparent_50%)]"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-block mb-4">
+              <div className="flex items-center justify-center space-x-3 mb-2">
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-600"></div>
+                <Sparkles className="text-amber-600" size={24} />
+                <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-600"></div>
+              </div>
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Our Menu</h2>
+            <p className="text-xl text-gray-600 font-light max-w-2xl mx-auto">Discover authentic flavors crafted with love and tradition</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -295,26 +422,27 @@ const IndianSoulFood = () => {
               <div 
                 key={item.id} 
                 onClick={() => setSelectedDish(item)}
-                className="bg-white border-2 border-gray-200 rounded-xl overflow-hidden hover:shadow-xl transition cursor-pointer transform hover:-translate-y-1"
+                className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer transform hover:-translate-y-2 border border-amber-100"
               >
-                <div className="bg-gradient-to-br from-orange-100 to-yellow-100 h-48 flex items-center justify-center">
-                  <div className="text-center">
-                    <ChefHat size={60} className="mx-auto text-gray-300 mb-2" />
-                    <p className="text-gray-400 text-sm">Food Image</p>
+                <div className="relative bg-gradient-to-br from-amber-50 to-stone-100 h-56 flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="text-center relative z-10">
+                    {/* <ChefHat size={70} className="mx-auto text-amber-700/40 mb-2 transform group-hover:scale-110 transition-transform duration-500" />
+                    <p className="text-gray-500 text-sm font-medium">Food Image</p> */}
                   </div>
                 </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-900">{item.name}</h3>
-                    <span className="text-orange-600 font-bold text-lg">{item.price}</span>
+                <div className="p-6 bg-gradient-to-b from-white to-amber-50/30">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-amber-900 transition-colors duration-300" style={{ fontFamily: 'Playfair Display, serif' }}>{item.name}</h3>
+                    <span className="text-amber-800 font-bold text-lg px-3 py-1 bg-amber-100 rounded-lg">{item.price}</span>
                   </div>
-                  <p className="text-sm text-orange-600 mb-2">{item.category}</p>
-                  <p className="text-gray-600 mb-4">{item.description}</p>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className={`px-3 py-1 rounded-full ${item.vegetarian ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  <p className="text-sm text-amber-700 mb-3 font-semibold uppercase tracking-wide">{item.category}</p>
+                  <p className="text-gray-600 mb-4 font-light leading-relaxed">{item.description}</p>
+                  <div className="flex justify-between items-center text-sm pt-4 border-t border-amber-100">
+                    <span className={`px-3 py-1.5 rounded-full font-medium ${item.vegetarian ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
                       {item.vegetarian ? '🌱 Vegetarian' : '🍖 Non-Veg'}
                     </span>
-                    <span className="text-gray-500">🌶️ {item.spiceLevel}</span>
+                    <span className="text-gray-600 font-medium">🌶️ {item.spiceLevel}</span>
                   </div>
                 </div>
               </div>
@@ -325,40 +453,41 @@ const IndianSoulFood = () => {
 
       {/* Food Detail Modal */}
       {selectedDish && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedDish(null)}>
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in" onClick={() => setSelectedDish(null)}>
+          <div className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform animate-scale-in border-2 border-amber-200" onClick={(e) => e.stopPropagation()}>
             <div className="relative">
-              <button onClick={() => setSelectedDish(null)} className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition">
+              <button onClick={() => setSelectedDish(null)} className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:bg-white transition-all duration-300 text-gray-700 hover:text-gray-900 hover:scale-110">
                 <X size={24} />
               </button>
-              <div className="bg-gradient-to-br from-orange-100 to-yellow-100 h-64 flex items-center justify-center">
-                <div className="text-center">
-                  <ChefHat size={80} className="mx-auto text-gray-300 mb-2" />
-                  <p className="text-gray-400">Food Image Placeholder</p>
+              <div className="bg-gradient-to-br from-amber-100 to-stone-200 h-72 flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,119,6,0.1),transparent_70%)]"></div>
+                <div className="text-center relative z-10">
+                  {/* <ChefHat size={100} className="mx-auto text-amber-700/50 mb-2" />
+                  <p className="text-gray-500 font-medium">Food Image Placeholder</p> */}
                 </div>
               </div>
             </div>
-            <div className="p-8">
-              <div className="flex justify-between items-start mb-4">
+            <div className="p-8 md:p-10">
+              <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-2">{selectedDish.name}</h2>
-                  <p className="text-orange-600 font-semibold">{selectedDish.category}</p>
+                  <h2 className="text-4xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Playfair Display, serif' }}>{selectedDish.name}</h2>
+                  <p className="text-amber-700 font-semibold text-lg uppercase tracking-wide">{selectedDish.category}</p>
                 </div>
-                <span className="text-3xl font-bold text-orange-600">{selectedDish.price}</span>
+                <span className="text-4xl font-bold text-amber-800 px-4 py-2 bg-amber-100 rounded-xl">{selectedDish.price}</span>
               </div>
-              <p className="text-gray-700 text-lg mb-6">{selectedDish.description}</p>
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-500 mb-1">Spice Level</p>
-                  <p className="font-semibold text-gray-900">🌶️ {selectedDish.spiceLevel}</p>
+              <p className="text-gray-700 text-lg mb-8 font-light leading-relaxed">{selectedDish.description}</p>
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="bg-gradient-to-br from-stone-50 to-amber-50 p-5 rounded-xl border border-amber-200 shadow-sm">
+                  <p className="text-sm text-gray-500 mb-2 font-medium uppercase tracking-wide">Spice Level</p>
+                  <p className="font-bold text-gray-900 text-lg">🌶️ {selectedDish.spiceLevel}</p>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-500 mb-1">Dietary</p>
-                  <p className="font-semibold text-gray-900">{selectedDish.vegetarian ? '🌱 Vegetarian' : '🍖 Non-Vegetarian'}</p>
+                <div className="bg-gradient-to-br from-stone-50 to-amber-50 p-5 rounded-xl border border-amber-200 shadow-sm">
+                  <p className="text-sm text-gray-500 mb-2 font-medium uppercase tracking-wide">Dietary</p>
+                  <p className="font-bold text-gray-900 text-lg">{selectedDish.vegetarian ? '🌱 Vegetarian' : '🍖 Non-Veg'}</p>
                 </div>
               </div>
-              <a href="tel:+18315214619" className="block w-full bg-orange-600 text-white text-center px-6 py-4 rounded-lg text-lg font-semibold hover:bg-orange-700 transition">
-                <Phone className="inline mr-2" size={20} />
+              <a href="tel:+18315214619" className="block w-full bg-gradient-to-r from-amber-700 to-amber-800 text-white text-center px-6 py-5 rounded-xl text-lg font-bold hover:from-amber-800 hover:to-amber-900 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                <Phone className="inline mr-2" size={22} />
                 Call to Order
               </a>
             </div>
@@ -367,12 +496,23 @@ const IndianSoulFood = () => {
       )}
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-gradient-to-br from-orange-50 to-yellow-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section id="about" className="py-24 bg-gradient-to-b from-white to-stone-50 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-20 right-10 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-orange-200/20 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Story</h2>
-              <div className="space-y-4 text-gray-700 text-lg">
+              <div className="inline-block mb-6">
+                <div className="flex items-center space-x-3 mb-2">
+                  <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-600"></div>
+                  <Sparkles className="text-amber-600" size={20} />
+                  <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-600"></div>
+                </div>
+              </div>
+              <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8" style={{ fontFamily: 'Playfair Display, serif' }}>Our Story</h2>
+              <div className="space-y-5 text-gray-700 text-lg font-light leading-relaxed">
                 <p>
                   Indian Soul Food was born from a passion for authentic Indian cuisine and a desire to share the rich culinary heritage of India with the Los Angeles community. Since opening our doors in 2023, we've been committed to bringing traditional flavors and time-honored recipes to your table.
                 </p>
@@ -382,30 +522,49 @@ const IndianSoulFood = () => {
                 <p>
                   We specialize in delivery service, making it easy for you to enjoy restaurant-quality Indian food in the comfort of your home. We also offer catering for events of all sizes, from intimate family gatherings to large corporate functions, bringing the warmth and flavor of Indian hospitality to your special occasions.
                 </p>
-                <p className="font-semibold text-orange-600">
+                <p className="font-semibold text-amber-900 text-xl italic border-l-4 border-amber-600 pl-4">
                   Our mission is simple: to serve food that touches the soul and brings people together, one meal at a time.
                 </p>
               </div>
             </div>
             <div className="space-y-6">
-              <div className="bg-white p-8 rounded-xl shadow-lg">
-                <Users className="text-orange-600 mb-4" size={40} />
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Catering Services</h3>
-                <p className="text-gray-600 mb-4">
-                  Planning an event? Let us handle the food! We cater weddings, corporate events, birthday parties, and more. Customizable menus to suit your needs and guest count.
+              <div className="group bg-gradient-to-br from-white to-amber-50 border-2 border-amber-200 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div className="bg-gradient-to-br from-amber-100 to-amber-200 w-16 h-16 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-md">
+                  <Phone className="text-amber-900" size={32} />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>Delivery Service</h3>
+                <p className="text-gray-700 mb-5 font-light leading-relaxed">
+                  Craving authentic Indian food? We deliver fresh, hot meals right to your doorstep. Order now and enjoy restaurant-quality cuisine in the comfort of your home.
                 </p>
-                <a href="tel:+18315214619" className="text-orange-600 font-semibold hover:text-orange-700">
-                  Call for Catering Inquiry →
+                <a href="tel:+18315214619" className="text-amber-800 font-semibold hover:text-amber-900 inline-flex items-center group/link">
+                  Call to Order Delivery
+                  <span className="ml-2 transform group-hover/link:translate-x-1 transition-transform duration-300">→</span>
                 </a>
               </div>
-              <div className="bg-white p-8 rounded-xl shadow-lg">
-                <Calendar className="text-orange-600 mb-4" size={40} />
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Food Events</h3>
-                <p className="text-gray-600 mb-4">
+              <div className="group bg-gradient-to-br from-white to-amber-50 border-2 border-amber-200 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div className="bg-gradient-to-br from-amber-100 to-amber-200 w-16 h-16 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-md">
+                  <Users className="text-amber-900" size={32} />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>Catering Services</h3>
+                <p className="text-gray-700 mb-5 font-light leading-relaxed">
+                  Planning an event? Let us handle the food! We cater weddings, corporate events, birthday parties, and more. Customizable menus to suit your needs and guest count.
+                </p>
+                <a href="tel:+18315214619" className="text-amber-800 font-semibold hover:text-amber-900 inline-flex items-center group/link">
+                  Call for Catering Inquiry 
+                  <span className="ml-2 transform group-hover/link:translate-x-1 transition-transform duration-300">→</span>
+                </a>
+              </div>
+              <div className="group bg-gradient-to-br from-white to-amber-50 border-2 border-amber-200 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div className="bg-gradient-to-br from-amber-100 to-amber-200 w-16 h-16 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-md">
+                  <Calendar className="text-amber-900" size={32} />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>Food Events</h3>
+                <p className="text-gray-700 mb-5 font-light leading-relaxed">
                   Experience authentic Indian cooking at our special food events. From cooking demonstrations to tasting sessions, we bring the culture and cuisine together.
                 </p>
-                <a href="tel:+18315214619" className="text-orange-600 font-semibold hover:text-orange-700">
-                  Inquire About Events →
+                <a href="tel:+18315214619" className="text-amber-800 font-semibold hover:text-amber-900 inline-flex items-center group/link">
+                  Inquire About Events 
+                  <span className="ml-2 transform group-hover/link:translate-x-1 transition-transform duration-300">→</span>
                 </a>
               </div>
             </div>
@@ -414,25 +573,34 @@ const IndianSoulFood = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">What Our Customers Say</h2>
-            <p className="text-xl text-gray-600">Loved by food enthusiasts across Los Angeles</p>
+      <section id="testimonials" className="py-24 bg-gradient-to-b from-stone-50 to-white relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_80%,rgba(217,119,6,0.05),transparent_50%)]"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-block mb-4">
+              <div className="flex items-center justify-center space-x-3 mb-2">
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-600"></div>
+                <Sparkles className="text-amber-600" size={24} />
+                <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-600"></div>
+              </div>
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>What Our Customers Say</h2>
+            <p className="text-xl text-gray-600 font-light max-w-2xl mx-auto">Loved by food enthusiasts across Los Angeles</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-gradient-to-br from-orange-50 to-yellow-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition">
-                <div className="flex items-center mb-4">
+              <div key={index} className="group bg-gradient-to-br from-white to-amber-50 border-2 border-amber-200 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                <div className="flex items-center mb-5">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="text-yellow-500 fill-current" size={20} />
+                    <Star key={i} className="text-amber-500 fill-current transform group-hover:scale-110 transition-transform duration-300" size={22} style={{ transitionDelay: `${i * 50}ms` }} />
                   ))}
                 </div>
-                <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                <div className="border-t border-orange-200 pt-4">
-                  <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                  <p className="text-sm text-gray-500">{testimonial.date}</p>
+                <p className="text-gray-700 mb-6 italic font-light leading-relaxed text-lg">"{testimonial.text}"</p>
+                <div className="border-t-2 border-amber-200 pt-5">
+                  <p className="font-bold text-gray-900 text-lg">{testimonial.name}</p>
+                  <p className="text-sm text-gray-500 font-light mt-1">{testimonial.date}</p>
                 </div>
               </div>
             ))}
@@ -441,42 +609,54 @@ const IndianSoulFood = () => {
       </section>
 
       {/* Footer / Contact */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8">
+      <footer className="bg-gradient-to-br from-gray-900 to-stone-900 text-white py-16 border-t-4 border-amber-700 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(217,119,6,0.1),transparent_50%)]"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid md:grid-cols-3 gap-12">
             <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <ChefHat size={32} className="text-orange-500" />
-                <span className="text-2xl font-bold">Indian Soul Food</span>
+              <div className="flex items-center space-x-3 mb-6">
+                <img 
+                  src="/indian_soul_food_logo_black.png" 
+                  alt="Indian Soul Food Logo" 
+                  className="w-12 h-12 object-contain"
+                />
+                <span className="text-2xl font-bold text-amber-400" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  Indian Soul Food
+                </span>
               </div>
-              <p className="text-gray-400">
+              <p className="text-gray-400 font-light leading-relaxed">
                 Authentic Indian cuisine delivered to your door. Catering and events available.
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-4">Contact Us</h3>
-              <div className="space-y-2 text-gray-400">
-                <p className="flex items-center">
-                  <Phone size={18} className="mr-2 text-orange-500" />
-                  <a href="tel:+18315214619" className="hover:text-white transition">+1 (831) 521-4619</a>
-                </p>
-                <p className="flex items-center">
-                  <MapPin size={18} className="mr-2 text-orange-500" />
-                  North Harvard, Los Angeles, CA
-                </p>
+              <h3 className="text-xl font-bold mb-6 text-amber-400" style={{ fontFamily: 'Playfair Display, serif' }}>Contact Us</h3>
+              <div className="space-y-4 text-gray-400 font-light">
+                <div className="flex items-center group">
+                  <div className="bg-amber-900/50 p-2 rounded-lg mr-3 group-hover:bg-amber-800/50 transition-colors duration-300">
+                    <Phone size={18} className="text-amber-400" />
+                  </div>
+                  <a href="tel:+18315214619" className="hover:text-amber-400 transition-colors duration-300">+1 (831) 521-4619</a>
+                </div>
+                <div className="flex items-center group">
+                  <div className="bg-amber-900/50 p-2 rounded-lg mr-3 group-hover:bg-amber-800/50 transition-colors duration-300">
+                    <MapPin size={18} className="text-amber-400" />
+                  </div>
+                  <span>North Harvard, Los Angeles, CA</span>
+                </div>
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-4">Hours</h3>
-              <div className="space-y-2 text-gray-400">
-                <p>Monday - Sunday</p>
-                <p className="font-semibold text-white">11:00 AM - 10:00 PM</p>
-                <p className="text-sm mt-4">Call us for delivery, catering, or event inquiries</p>
+              <h3 className="text-xl font-bold mb-6 text-amber-400" style={{ fontFamily: 'Playfair Display, serif' }}>Hours</h3>
+              <div className="space-y-3 text-gray-400 font-light">
+                <div>Monday - Sunday</div>
+                <div className="font-semibold text-white text-lg">11:00 AM - 10:00 PM</div>
+                <div className="text-sm mt-4 leading-relaxed">Call us for delivery, catering, or event inquiries</div>
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Indian Soul Food. All rights reserved.</p>
+          <div className="border-t border-amber-900/50 mt-12 pt-8 text-center text-gray-400 font-light">
+            <div>&copy; 2024 Indian Soul Food. All rights reserved.</div>
           </div>
         </div>
       </footer>
