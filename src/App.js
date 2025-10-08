@@ -656,7 +656,7 @@ const IndianSoulFood = () => {
             </div>
           </div>
           <div className="border-t border-amber-900/50 mt-12 pt-8 text-center text-gray-400 font-light">
-            <div>&copy; 2024 Indian Soul Food. All rights reserved.</div>
+            <div>&copy; 2023 Indian Soul Food. All rights reserved.</div>
           </div>
         </div>
       </footer>
