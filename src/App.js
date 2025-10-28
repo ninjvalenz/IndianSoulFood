@@ -66,7 +66,8 @@ const IndianSoulFood = () => {
       description: "Tender chicken in creamy tomato sauce with aromatic spices",
       price: "$16.99",
       spiceLevel: "Medium",
-      vegetarian: false
+      vegetarian: false,
+      image: "/menu/butter chicken2.jpg"
     },
     {
       id: 2,
@@ -75,7 +76,8 @@ const IndianSoulFood = () => {
       description: "Grilled cottage cheese in rich, spiced tomato gravy",
       price: "$14.99",
       spiceLevel: "Medium",
-      vegetarian: true
+      vegetarian: true,
+      image: "/menu/Paneer Tikka Masala.jpg"
     },
     {
       id: 3,
@@ -84,7 +86,8 @@ const IndianSoulFood = () => {
       description: "Fragrant basmati rice layered with spiced meat or vegetables",
       price: "$15.99",
       spiceLevel: "Mild",
-      vegetarian: false
+      vegetarian: false,
+      image: "/menu/biryani rice.jpg"
     },
     {
       id: 4,
@@ -93,7 +96,8 @@ const IndianSoulFood = () => {
       description: "Crispy pastry filled with spiced potatoes and peas",
       price: "$6.99",
       spiceLevel: "Mild",
-      vegetarian: true
+      vegetarian: true,
+      image: "/menu/samosa.jpg"
     },
     {
       id: 5,
@@ -102,7 +106,8 @@ const IndianSoulFood = () => {
       description: "Yogurt-marinated chicken cooked in traditional clay oven",
       price: "$17.99",
       spiceLevel: "Medium",
-      vegetarian: false
+      vegetarian: false,
+      image: "/menu/tandoorichicken.jpg"
     },
     {
       id: 6,
@@ -111,7 +116,8 @@ const IndianSoulFood = () => {
       description: "Black lentils slow-cooked with butter and cream",
       price: "$12.99",
       spiceLevel: "Mild",
-      vegetarian: true
+      vegetarian: true,
+      image: "/menu/daal makhani.jpg"
     },
     {
       id: 7,
@@ -120,7 +126,8 @@ const IndianSoulFood = () => {
       description: "Fresh-baked flatbread from the tandoor oven",
       price: "$3.99",
       spiceLevel: "None",
-      vegetarian: true
+      vegetarian: true,
+      image: "/menu/naan.jpg"
     },
     {
       id: 8,
@@ -129,7 +136,8 @@ const IndianSoulFood = () => {
       description: "Cottage cheese cubes in creamy spinach curry",
       price: "$13.99",
       spiceLevel: "Mild",
-      vegetarian: true
+      vegetarian: true,
+      image: "/menu/palak paneer.jpg"
     },
     {
       id: 9,
@@ -138,7 +146,8 @@ const IndianSoulFood = () => {
       description: "Marinated chicken pieces grilled to perfection",
       price: "$9.99",
       spiceLevel: "Medium",
-      vegetarian: false
+      vegetarian: false,
+      image: "/menu/tandoorichicken.jpg"
     },
     {
       id: 10,
@@ -147,7 +156,8 @@ const IndianSoulFood = () => {
       description: "Sweet milk dumplings soaked in rose-flavored syrup",
       price: "$5.99",
       spiceLevel: "None",
-      vegetarian: true
+      vegetarian: true,
+      image: "/menu/Gulab Jamun.jpg"
     },
     {
       id: 11,
@@ -156,7 +166,8 @@ const IndianSoulFood = () => {
       description: "Tender lamb in aromatic Kashmiri curry sauce",
       price: "$18.99",
       spiceLevel: "Hot",
-      vegetarian: false
+      vegetarian: false,
+      image: "/menu/RojanJosh.jpg"
     },
     {
       id: 12,
@@ -165,7 +176,8 @@ const IndianSoulFood = () => {
       description: "Chickpeas simmered in tangy tomato-onion gravy",
       price: "$11.99",
       spiceLevel: "Medium",
-      vegetarian: true
+      vegetarian: true,
+      image: "/menu/Chana Masala.jpg"
     }
   ];
 
@@ -419,17 +431,18 @@ const IndianSoulFood = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {menuItems.map((item) => (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 onClick={() => setSelectedDish(item)}
                 className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer transform hover:-translate-y-2 border border-amber-100"
               >
                 <div className="relative bg-gradient-to-br from-amber-50 to-stone-100 h-56 flex items-center justify-center overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-amber-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="text-center relative z-10">
-                    {/* <ChefHat size={70} className="mx-auto text-amber-700/40 mb-2 transform group-hover:scale-110 transition-transform duration-500" />
-                    <p className="text-gray-500 text-sm font-medium">Food Image</p> */}
-                  </div>
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  />
                 </div>
                 <div className="p-6 bg-gradient-to-b from-white to-amber-50/30">
                   <div className="flex justify-between items-start mb-3">
@@ -460,11 +473,11 @@ const IndianSoulFood = () => {
                 <X size={24} />
               </button>
               <div className="bg-gradient-to-br from-amber-100 to-stone-200 h-72 flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,119,6,0.1),transparent_70%)]"></div>
-                <div className="text-center relative z-10">
-                  {/* <ChefHat size={100} className="mx-auto text-amber-700/50 mb-2" />
-                  <p className="text-gray-500 font-medium">Food Image Placeholder</p> */}
-                </div>
+                <img
+                  src={selectedDish.image}
+                  alt={selectedDish.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
             <div className="p-8 md:p-10">
